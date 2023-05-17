@@ -1,6 +1,6 @@
 #!/bin/bash
 
-file="$1"  # The input file will be passed as the first argument to the script
+file="$2"  # The input file will be passed as the first argument to the script
 output_file="vulnerable_urls.txt"  # Output file to save vulnerable URLs
 
 if [ -z "$file" ]; then
