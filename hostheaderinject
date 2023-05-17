@@ -1,0 +1,18 @@
+#!/bin/bash
+
+file="$1"  # The input file will be passed as the first argument to the script
+
+if [ -z "$file" ]; then
+  echo "Error: No input file provided."
+  exit 1
+fi
+
+while IFS= read -r url; do
+  response=$(curl --max-time 5 -s -I -H "Host: forsec.me" -H "X-Forwarded-For: forsec.me" "$url")
+
+  if echo "$response" | grep -q "forsec.me"; then
+    echo -e "\e[31m$url is vulnerable to Host Header Injection\e[0m"  # Red color for vulnerability
+  else
+    echo -e "\e[32m$url is not vulnerable to Host Header Injection\e[0m"  # Green color for no vulnerability
+  fi
+done < "$file"
